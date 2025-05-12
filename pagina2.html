@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>E-ConCiencia</title>
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <style>
+    body {
+      background-color: #d9f8d9;
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      padding: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .logo img {
+      width: 60px; /* Aumentado */
+    }
+
+    .logo h1 {
+      background-color: white;
+      padding: 8px 16px;
+      margin: 0;
+      border-radius: 8px;
+      border: 2px solid #7dbf7d; /* Verde armonioso */
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar {
+      margin: 20px auto;
+      width: 50%;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      background-color: #f2f2f2;
+      border: 2px solid #ccc;
+      border-radius: 30px;
+      padding: 8px 15px;
+    }
+
+    .search-bar input {
+      border: none;
+      background: transparent;
+      flex: 1;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-bar .mic {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin: 30px 0 20px;
+      font-size: 20px;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background-color: #f1fff1;
+      width: 330px;
+      border-radius: 10px;
+      box-shadow: 4px 4px 0px #000;
+      padding: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      background: #ffffffcc;
+      padding: 5px 10px;
+      border-radius: 30px;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+      box-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+    }
+
+    .left-arrow { left: -20px; }
+    .right-arrow { right: -20px; }
+
+    #desarrolladores {
+      padding: 40px;
+      background-color: #f1fff1;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .instagram-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin: 5px 10px;
+      color: black;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .instagram-links a:hover {
+      text-decoration: underline;
+    }
+
+    .instagram-links img {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.jpeg" alt="Logo E-ConCiencia">
+      <h1>E-ConCiencia</h1>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar...">
+      <span class="mic">🎤</span>
+    </div>
+  </header>
+
+  <h2>Posts más recientes</h2>
+
+  <div class="card-container" id="cardContainer">
+    <!-- Posts incrustados aquí -->
+  </div>
+
+  <section id="desarrolladores">
+    <h2>Equipo</h2>
+    <div class="instagram-links">
+      <a href="https://instagram.com/estrada.bstm" onclick="abrirInstagram(this.href); return false;">
+        <img src="https://img.icons8.com/ios-filled/20/000000/instagram-new.png" alt="Instagram"> Desarrollador principal
+      </a>
+      <a href="https://instagram.com/miniluthor" onclick="abrirInstagram(this.href); return false;">
+        <img src="https://img.icons8.com/ios-filled/20/000000/instagram-new.png" alt="Instagram"> Líder de proyecto
+      </a>
+    </div>
+  </section>
+
+  <script>
+    const posts = [
+      "https://www.instagram.com/p/DJQPWyoxs4D/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      "https://www.instagram.com/p/DHd5TpSRHU8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      "https://www.instagram.com/p/DG3ggezxm05/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      "https://www.instagram.com/p/DG3f0dYRJox/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      "https://www.instagram.com/p/DG3emZvRszq/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    ];
+
+    let index = 0;
+
+    function renderTarjetas() {
+      const container = document.getElementById("cardContainer");
+      container.innerHTML = '';
+
+      for (let i = 0; i < 3; i++) {
+        const postUrl = posts[(index + i) % posts.length];
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const embed = `
+          <blockquote class="instagram-media" data-instgrm-permalink="${postUrl}" data-instgrm-version="14" style="width:100%; margin:0 auto;"></blockquote>
+        `;
+
+        let arrowLeft = '';
+        let arrowRight = '';
+
+        if (i === 0) {
+          arrowLeft = `<div class="arrow left-arrow" onclick="retroceder()">←</div>`;
+        }
+        if (i === 2) {
+          arrowRight = `<div class="arrow right-arrow" onclick="avanzar()">→</div>`;
+        }
+
+        card.innerHTML = embed + arrowLeft + arrowRight;
+        container.appendChild(card);
+      }
+
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    }
+
+    function avanzar() {
+      index = (index + 1) % posts.length;
+      renderTarjetas();
+    }
+
+    function retroceder() {
+      index = (index - 1 + posts.length) % posts.length;
+      renderTarjetas();
+    }
+
+    function abrirInstagram(url) {
+      window.open(url, '_blank');
+    }
+
+    renderTarjetas();
+  </script>
+</body>
+</html>
