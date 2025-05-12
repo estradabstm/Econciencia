@@ -127,6 +127,33 @@
       width: 20px;
       height: 20px;
     }
+
+    /* Banners laterales */
+.banner {
+  position: fixed;
+  top: 100px;
+  width: 120px;
+  height: 600px;
+  background-color: #ffffff;
+  border: 2px solid #7dbf7d;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.left-banner {
+  left: 10px;
+}
+
+.right-banner {
+  right: 10px;
+}
+
+@media (max-width: 1024px) {
+  .banner {
+    display: none; /* Oculta los banners en pantallas pequeñas */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -218,5 +245,18 @@
 
     renderTarjetas();
   </script>
+  <!-- Banners laterales -->
+<div class="banner left-banner">
+  <a href="https://tuenlace.com" target="_blank">
+    <img src="banner-izquierdo.jpg" alt="Anuncio Izquierdo" style="width: 100%; height: 100%;">
+  </a>
+</div>
+
+<div class="banner right-banner">
+  <a href="https://tuenlace.com" target="_blank">
+    <img src="banner-derecho.jpg" alt="Anuncio Derecho" style="width: 100%; height: 100%;">
+  </a>
+</div>
+
 </body>
 </html>
